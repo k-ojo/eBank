@@ -1,41 +1,56 @@
-from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from app.db.init import init_db
-from app.routes import auth
+from fastapi import FastAPI
+from app.routes import auth, user, accounts
+from app.db.init import users_collection, accounts_collection, create_indexes
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
-import os
-import uvicorn
+from app.core.config import settings
+
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await init_db()  # Initialize MongoDB
-    yield  # App is running
+    # Startup
+    print("Starting up BTF Bank API...")
+    await create_indexes()
+    print("Database indexes created successfully")
+    
+    yield
+    
+    # Shutdown
+    print("Shutting down BTF Bank API...")
+    # Add any cleanup code here if needed
+    # For example, closing database connections
+    print("Cleanup completed")
 
-app = FastAPI(lifespan=lifespan)
 
-app.include_router(auth.router)
-
-load_dotenv()
+app = FastAPI(
+    title="BTF Bank API",
+    description="Banking API for BTF Bank UK",
+    version="1.0.0",
+    lifespan=lifespan
+)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+app.include_router(auth.router)
+app.include_router(user.router)
+app.include_router(accounts.router)
+
 @app.get("/")
 async def root():
-    return {"message": "Hello, World!"}
+    return {"message": "Welcome to BTF Bank API"}
 
-
-if __name__ == "__main__":
-    uvicorn.run(
-        "app.main:app",
-        host="0.0.0.0",
-        port=int(os.getenv.get("PORT", 8000)),
-        reload=True  # Optional: remove in production
-    )
-
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "OK",
+        "message": "BTF Bank API is running",
+        "version": "1.0.0"
+    }
