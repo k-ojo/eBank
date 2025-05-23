@@ -111,8 +111,8 @@ const ContactPage = () => {
                   <h3 className="font-medium">Main Branch</h3>
                   <p className="text-gray-600">
                     Ever Trust Bank<br />
-                    1 Trust Lane, East Legon<br />
-                    Accra, Ghana
+                    <br />
+                    Lodon, UK
                   </p>
                 </div>
               </div>

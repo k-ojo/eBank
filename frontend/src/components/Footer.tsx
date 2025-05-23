@@ -51,12 +51,12 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-3">Contact</h3>
             <address className="text-sm not-italic">
               <p>Britfield Bank</p>
-              <p>1 Trust Lane, East Legon</p>
-              <p>Accra, Ghana</p>
+              <p>London</p>
+              <p>UK</p>
               <p className="mt-2 flex items-center">
                 <strong>Support:</strong>&nbsp;
                 <span className="group relative flex items-center">
-                  +233 55 123 4567
+                  +44 20 7946 9821
                   <Button 
                     variant="ghost" 
                     size="icon" 

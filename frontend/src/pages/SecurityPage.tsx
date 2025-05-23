@@ -9,7 +9,7 @@ const SecurityPage = () => {
       <div className="text-center mb-12">
         <h1 className="text-3xl font-bold mb-2">Security Center</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          At EverTrust Bank, your security is our top priority. We use advanced encryption and security protocols to safeguard your information.
+          At Britfield Bank, your security is our top priority. We use advanced encryption and security protocols to safeguard your information.
         </p>
       </div>
       
@@ -63,7 +63,7 @@ const SecurityPage = () => {
               <div>
                 <h3 className="text-lg font-semibold mb-2">Never Share Your Password</h3>
                 <p className="text-gray-600">
-                  EverTrust Bank will never ask for your complete password, PIN, or security codes via email, phone, or text message. Keep your credentials private at all times.
+                  Britfield Bank will never ask for your complete password, PIN, or security codes via email, phone, or text message. Keep your credentials private at all times.
                 </p>
               </div>
             </div>
@@ -93,7 +93,7 @@ const SecurityPage = () => {
               <div>
                 <h3 className="text-lg font-semibold mb-2">Our Staff Will Never Ask for OTPs</h3>
                 <p className="text-gray-600">
-                  EverTrust Bank staff will never ask for your One-Time Passwords (OTPs) or transaction authorization codes. These should only be entered on our official website or app.
+                  Britfield Bank staff will never ask for your One-Time Passwords (OTPs) or transaction authorization codes. These should only be entered on our official website or app.
                 </p>
               </div>
             </div>

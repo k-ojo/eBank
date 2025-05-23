@@ -13,17 +13,27 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Welcome Message */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Welcome to Your Dashboard!</h1>
-        <p className="text-gray-600">Here's a summary of your accounts and recent activity.</p>
+      <div className="mb-8 flex items-center gap-4">
+        {/* Profile Icon */}
+        <div className="w-14 h-14 rounded-full bg-bank-light flex items-center justify-center text-xl font-semibold text-white">
+          {/* Optional: use initials or image */}
+          <span className="text-bank-primary">J</span>
+        </div>
+
+        {/* Welcome Message */}
+        <div>
+          <h1 className="text-3xl font-bold">Welcome, Juliet!</h1>
+          <p className="text-gray-600">Here's a summary of your accounts and recent activity.</p>
+        </div>
       </div>
-      
+
+
       {/* Account Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
         <div className="col-span-1 lg:col-span-2">
           <AccountCard accountId="acc1" className="h-full" />
         </div>
-        
+
         <div className="lg:col-span-1 flex flex-col gap-4">
           <div className="bg-bank-accent rounded-lg p-5 flex-1">
             <h3 className="text-lg font-semibold mb-3">Quick Actions</h3>
@@ -60,7 +70,7 @@ const Dashboard = () => {
               </Button>
             </div>
           </div>
-          
+
           <div className="bg-bank-light rounded-lg p-5 flex-1">
             <h3 className="text-lg font-semibold mb-3">Other Accounts</h3>
             <div className="space-y-3">
@@ -78,7 +88,7 @@ const Dashboard = () => {
                   <div className="font-semibold">$250,000.00</div>
                 </div>
               </div>
-              
+
               <div className="p-3 bg-white rounded border border-gray-200 flex justify-between items-center">
                 <div>
                   <div className="flex items-center">
@@ -97,7 +107,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Recent Transactions */}
       <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
         <div className="flex justify-between items-center mb-4">
@@ -112,7 +122,7 @@ const Dashboard = () => {
         </div>
         <TransactionList limit={5} showHeading={false} />
       </div>
-      
+
       {/* Notifications */}
       <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded">
         <div className="flex">

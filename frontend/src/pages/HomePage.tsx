@@ -67,7 +67,7 @@ const HomePage = () => {
           <div>
             <h2 className="text-3xl font-bold mb-4">Expert Financial Guidance</h2>
             <p className="text-gray-600 mb-6">
-              At EverTrust Bank, our team of experienced professionals is dedicated to helping you achieve your financial goals. 
+              At Britfield Bank, our team of experienced professionals is dedicated to helping you achieve your financial goals. 
               Whether you're planning for retirement, buying a home, or starting a business, we have the expertise to guide you every step of the way.
             </p>
             <p className="text-gray-600 mb-6">
@@ -114,7 +114,7 @@ const HomePage = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Key Services</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              Discover how EverTrust Bank can help you achieve your financial goals with our comprehensive range of services.
+              Discover how Britfield Bank can help you achieve your financial goals with our comprehensive range of services.
             </p>
           </div>
           
@@ -179,7 +179,7 @@ const HomePage = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              Don't just take our word for it - see what our satisfied customers have to say about their experience with EverTrust Bank.
+              Don't just take our word for it - see what our satisfied customers have to say about their experience with Britfield Bank.
             </p>
           </div>
           
@@ -272,7 +272,7 @@ const HomePage = () => {
             </p>
           </div>
           <p className="mt-2">
-            Your data is secured with 256-bit encryption. EverTrust Bank, ensuring your financial security since 2005.
+            Your data is secured with 256-bit encryption. Britfield Bank, ensuring your financial security since 2005.
           </p>
         </div>
       </section>

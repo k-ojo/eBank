@@ -255,7 +255,7 @@ const StatementsPage = () => {
                     return (
                       <div className="bg-white p-6 border rounded-lg max-w-2xl mx-auto">
                         <div className="text-center mb-6">
-                          <h3 className="text-xl font-bold text-bank-primary">EverTrust Bank</h3>
+                          <h3 className="text-xl font-bold text-bank-primary">Britfield Bank</h3>
                           <p className="text-sm text-gray-500">Transaction Receipt</p>
                         </div>
                         

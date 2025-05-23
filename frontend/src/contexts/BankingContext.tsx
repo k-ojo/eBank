@@ -58,8 +58,8 @@ const initialTransactions: Transaction[] = [
   {
     id: 'trans1',
     date: '2023-05-18',
-    description: 'Salary Deposit',
-    amount: 45000,
+    description: 'Deposit',
+    amount: 400000,
     type: 'credit',
     status: 'completed',
     reference: 'REF123456789'
@@ -67,26 +67,26 @@ const initialTransactions: Transaction[] = [
   {
     id: 'trans2',
     date: '2023-05-15',
-    description: 'Online Purchase',
-    amount: 1299,
-    type: 'debit',
+    description: 'Deposit',
+    amount: 400000,
+    type: 'credit',
     status: 'completed',
     reference: 'REF987654321'
   },
   {
     id: 'trans3',
     date: '2023-05-10',
-    description: 'Rent Payment',
-    amount: 12000,
-    type: 'debit',
+    description: 'Deposit',
+    amount: 170000,
+    type: 'credit',
     status: 'completed',
     reference: 'REF567891234'
   },
   {
     id: 'trans4',
     date: '2023-05-05',
-    description: 'Wire Transfer',
-    amount: 5000,
+    description: 'Withdrawal',
+    amount: 2500,
     type: 'debit',
     status: 'pending',
     reference: 'REF112233445'

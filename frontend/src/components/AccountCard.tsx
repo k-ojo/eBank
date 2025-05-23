@@ -33,7 +33,7 @@ const AccountCard = ({ accountId, className = "" }: AccountCardProps) => {
       
       <div className="mt-6 flex justify-between items-end">
         <div>
-          <p className="text-xs opacity-70">EverTrust Bank</p>
+          <p className="text-xs opacity-70">Britfield Bank</p>
         </div>
         <div className="text-right">
           <p className="text-xs opacity-70">Active</p>

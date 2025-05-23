@@ -76,7 +76,7 @@ const CardsPage = () => {
               <div key={card.id} className="bank-card p-6 overflow-hidden">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <p className="text-sm opacity-80">EverTrust Bank</p>
+                    <p className="text-sm opacity-80">Britfield Bank</p>
                     <p className="text-xs opacity-70 mt-1">{card.type}</p>
                   </div>
                   <div>

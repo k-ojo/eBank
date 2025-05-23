@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { apiUrl } from "@/config";
 import { Camera, Upload } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,7 +23,7 @@ const RegisterPage = () => {
     confirmPassword: "",
     referralCode: ""
   });
-  
+
   const [passwordStrength, setPasswordStrength] = useState({
     strength: "weak",
     color: "bg-gray-200",
@@ -38,16 +39,16 @@ const RegisterPage = () => {
   const [currentCapture, setCurrentCapture] = useState<"id" | "passport" | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const europeanCountries = [
-    "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", 
-    "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", 
-    "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", 
-    "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", 
+    "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic",
+    "Denmark", "Estonia", "Finland", "France", "Germany", "Greece",
+    "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg",
+    "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia",
     "Slovenia", "Spain", "Sweden"
   ];
 
@@ -90,7 +91,7 @@ const RegisterPage = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const previewUrl = URL.createObjectURL(file);
-      
+
       if (type === 'id') {
         setIdCardFile(file);
         setIdCardPreview(previewUrl);
@@ -104,7 +105,7 @@ const RegisterPage = () => {
   const startCamera = async (type: 'id' | 'passport') => {
     setCurrentCapture(type);
     setIsCameraOpen(true);
-    
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       if (videoRef.current) {
@@ -131,22 +132,22 @@ const RegisterPage = () => {
     if (videoRef.current && canvasRef.current && currentCapture) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
-      
+
       // Set canvas dimensions to match video
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      
+
       // Draw current video frame to canvas
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
+
         // Convert canvas to image blob
         canvas.toBlob((blob) => {
           if (blob) {
             const file = new File([blob], `${currentCapture}-photo.jpg`, { type: 'image/jpeg' });
             const previewUrl = URL.createObjectURL(blob);
-            
+
             if (currentCapture === 'id') {
               setIdCardFile(file);
               setIdCardPreview(previewUrl);
@@ -154,7 +155,7 @@ const RegisterPage = () => {
               setPassportPhotoFile(file);
               setPassportPhotoPreview(previewUrl);
             }
-            
+
             stopCamera();
             toast.success(`${currentCapture === 'id' ? 'ID Card' : 'Passport Photo'} captured successfully!`);
           }
@@ -165,15 +166,15 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const { fullName, email, country, password, confirmPassword, phone } = formData;
-    
+
     // Validation
     if (!fullName || !email || !password || !country || !phone) {
       toast.error("Please fill all required fields");
       return;
     }
-    
+
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
@@ -188,17 +189,46 @@ const RegisterPage = () => {
       toast.error("Please upload or capture your passport-style photo");
       return;
     }
-    
+
     try {
       setIsLoading(true);
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // In a real implementation, you would upload the files to a server here
       // For demonstration purposes, we'll just log the file information
+
+      const data = new FormData();
+
+      const nameParts = fullName.trim().split(" ");
+      const firstName = nameParts[0];
+      const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
+
+      const address = {
+        location: {
+          state: country,
+          city: "London",
+          zip_code: "Banking"
+        }
+      };
+
+      data.append("address", JSON.stringify(address));
+      data.append("first_name", firstName);
+      data.append("last_name", lastName);
+      data.append("email", email);
+      data.append("phone", phone);
+      data.append("password", password);
+      data.append("date_of_birth", "1990-01-01"); // Placeholder date
+
+      const response = await fetch(`${apiUrl}/auth/register`, {
+        method: "POST",
+        body: data,
+      });
+
+
       console.log("ID Card:", idCardFile);
       console.log("Passport Photo:", passportPhotoFile);
-      
+
       register(fullName, email, password);
       toast.success("Account created successfully!");
       navigate("/dashboard");
@@ -233,7 +263,7 @@ const RegisterPage = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="email">Email*</Label>
                   <Input
@@ -246,7 +276,7 @@ const RegisterPage = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number*</Label>
                   <Input
@@ -259,7 +289,7 @@ const RegisterPage = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="country">Country*</Label>
                   <Select onValueChange={handleCountryChange} required>
@@ -275,7 +305,7 @@ const RegisterPage = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="password">Create Password*</Label>
                   <Input
@@ -287,11 +317,11 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     required
                   />
-                  
+
                   {/* Password strength indicator */}
                   <div className="space-y-1 mt-2">
                     <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className={`h-full ${passwordStrength.color} transition-all duration-300`}
                         style={{ width: `${(passwordStrength.score / 6) * 100}%` }}
                       ></div>
@@ -299,7 +329,7 @@ const RegisterPage = () => {
                     <p className="text-xs text-gray-600">{passwordStrength.message}</p>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="confirmPassword">Confirm Password*</Label>
                   <Input
@@ -321,15 +351,15 @@ const RegisterPage = () => {
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center w-full sm:w-1/2 h-40">
                     {idCardPreview ? (
                       <div className="relative w-full h-full">
-                        <img 
-                          src={idCardPreview} 
-                          alt="ID Card Preview" 
+                        <img
+                          src={idCardPreview}
+                          alt="ID Card Preview"
                           className="w-full h-full object-contain"
                         />
-                        <Button 
-                          type="button" 
-                          variant="destructive" 
-                          size="sm" 
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
                           className="absolute top-0 right-0"
                           onClick={() => {
                             setIdCardFile(null);
@@ -357,15 +387,15 @@ const RegisterPage = () => {
                         className="hidden"
                         onChange={(e) => handleFileChange(e, 'id')}
                       />
-                      <Label 
-                        htmlFor="idCardUpload" 
+                      <Label
+                        htmlFor="idCardUpload"
                         className="cursor-pointer bg-primary text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-primary/90"
                       >
                         <Upload size={16} />
                         Upload
                       </Label>
                     </div>
-                    <Button 
+                    <Button
                       type="button"
                       variant="outline"
                       onClick={() => startCamera('id')}
@@ -385,15 +415,15 @@ const RegisterPage = () => {
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center w-full sm:w-1/2 h-40">
                     {passportPhotoPreview ? (
                       <div className="relative w-full h-full">
-                        <img 
-                          src={passportPhotoPreview} 
-                          alt="Passport Photo Preview" 
+                        <img
+                          src={passportPhotoPreview}
+                          alt="Passport Photo Preview"
                           className="w-full h-full object-contain"
                         />
-                        <Button 
-                          type="button" 
-                          variant="destructive" 
-                          size="sm" 
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
                           className="absolute top-0 right-0"
                           onClick={() => {
                             setPassportPhotoFile(null);
@@ -421,15 +451,15 @@ const RegisterPage = () => {
                         className="hidden"
                         onChange={(e) => handleFileChange(e, 'passport')}
                       />
-                      <Label 
-                        htmlFor="passportPhotoUpload" 
+                      <Label
+                        htmlFor="passportPhotoUpload"
                         className="cursor-pointer bg-primary text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-primary/90"
                       >
                         <Upload size={16} />
                         Upload
                       </Label>
                     </div>
-                    <Button 
+                    <Button
                       type="button"
                       variant="outline"
                       onClick={() => startCamera('passport')}
@@ -441,7 +471,7 @@ const RegisterPage = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="referralCode">Referral Code (optional)</Label>
                 <Input
@@ -452,10 +482,10 @@ const RegisterPage = () => {
                   onChange={handleChange}
                 />
               </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full" 
+
+              <Button
+                type="submit"
+                className="w-full"
                 disabled={isLoading}
               >
                 {isLoading ? "Creating Account..." : "Create Account"}
@@ -495,10 +525,10 @@ const RegisterPage = () => {
           </DialogHeader>
           <div className="flex flex-col gap-4">
             <div className="relative bg-black rounded-lg overflow-hidden">
-              <video 
-                ref={videoRef} 
-                autoPlay 
-                playsInline 
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
                 className="w-full h-auto"
               />
               <canvas ref={canvasRef} className="hidden" />
