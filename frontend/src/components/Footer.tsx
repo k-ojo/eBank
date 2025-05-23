@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-3">EverTrust Bank</h3>
+            <h3 className="text-lg font-semibold mb-3">Britfield Bank</h3>
             <p className="text-sm text-gray-300 mb-4">
               Your Trusted Financial Partner since 2005. Providing secure banking services for all your needs.
             </p>
@@ -50,7 +50,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-3">Contact</h3>
             <address className="text-sm not-italic">
-              <p>Ever Trust Bank</p>
+              <p>Britfield Bank</p>
               <p>1 Trust Lane, East Legon</p>
               <p>Accra, Ghana</p>
               <p className="mt-2 flex items-center">
@@ -69,8 +69,8 @@ const Footer = () => {
               </p>
               <p>
                 <strong>Email:</strong>&nbsp;
-                <a href="mailto:support@evertrustbank.com" className="hover:text-bank-secondary underline">
-                  support@evertrustbank.com
+                <a href="mailto:support@britfieldbank.com" className="hover:text-bank-secondary underline">
+                  support@britfieldbank.com
                 </a>
               </p>
             </address>
@@ -80,7 +80,7 @@ const Footer = () => {
         <div className="border-t border-gray-700 mt-8 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">
-              &copy; {new Date().getFullYear()} EverTrust Bank. All rights reserved.
+              &copy; {new Date().getFullYear()} Britfield Bank. All rights reserved.
             </p>
             <div className="flex mt-4 md:mt-0">
               <div className="flex space-x-4 text-sm text-gray-400">

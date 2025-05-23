@@ -1,48 +1,46 @@
 
 import { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { AlertCircle } from "lucide-react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   
-  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  
-  // Check if there was a previous location user was trying to access
-  const from = location.state?.from?.pathname || "/dashboard";
-
-  // Redirect authenticated users
-  if (isAuthenticated) {
-    navigate(from, { replace: true });
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
     
     if (!email || !password) {
+      setErrorMessage("Please enter both email and password");
       toast.error("Please enter both email and password");
+      return;
+    }
+    
+    // Check for minimum password length
+    if (password.length < 6) {
+      setErrorMessage("Password should be at least 6 characters");
+      toast.error("Password should be at least 6 characters");
       return;
     }
     
     try {
       setIsLoading(true);
-      const { error } = await login(email, password);
       
-      if (error) {
-        toast.error(error.message || "Login failed. Please check your credentials.");
-      } else {
+      // Simulated login - just a demo without real authentication
+      setTimeout(() => {
         toast.success("Login successful!");
-        navigate(from, { replace: true });
-      }
+        navigate("/dashboard");
+      }, 1000);
     } finally {
       setIsLoading(false);
     }
@@ -53,13 +51,26 @@ const LoginPage = () => {
       <div className="w-full max-w-md">
         <Card>
           <CardHeader className="space-y-1 text-center">
+            <div className="flex justify-center mb-2">
+              <img 
+                src="/lovable-uploads/25b73466-b415-413c-abf2-336293f7b52e.png" 
+                alt="Britfield Bank Logo" 
+                className="h-12 w-auto" 
+              />
+            </div>
             <CardTitle className="text-2xl font-bold">Login to Your Account</CardTitle>
             <CardDescription>
-              Enter your email and password to access your account
+              Enter your email and password to access your Britfield Bank account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {errorMessage && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded flex items-start gap-2">
+                  <AlertCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email or Account Number</Label>
                 <Input
@@ -89,6 +100,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
                 />
+                <p className="text-xs text-gray-500">Password must be at least 6 characters</p>
               </div>
               <Button 
                 type="submit" 
