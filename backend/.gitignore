@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# FastAPI / general app files to ignore
+instance/
+.webassets-cache
+
+# IDE/editor specific
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+
+# Database files (if you create any)
+*.sqlite3
+
+# Ignore Python bytecode and caches everywhere
+**/__pycache__/
+
+# Ignore your local environment config files if any
+*.env
+temp_uploads/
+uploads
